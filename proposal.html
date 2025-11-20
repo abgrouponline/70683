@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Proposal for Development of the Daily Active8 Domains Resource - Public Health Wales">
+    <title>Proposal: Daily Active8 Domains Resource Development</title>
+    <style>
+        :root {
+            --primary-color: #0066cc;
+            --secondary-color: #003d82;
+            --accent-color: #0099ff;
+            --text-color: #333333;
+            --bg-light: #f5f7fa;
+            --bg-white: #ffffff;
+            --success-color: #28a745;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-light);
+            font-size: 16px;
+        }
+
+        /* Skip to main content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary-color);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            background-color: rgba(255,255,255,0.2);
+            outline: 2px solid white;
+            outline-offset: 2px;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Sections */
+        section {
+            background: var(--bg-white);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent-color);
+        }
+
+        section h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        section h4 {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        /* Key information box */
+        .key-info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .key-info h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* Feature grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .feature-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-top: 4px solid var(--accent-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .feature-card h4 {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-card h4::before {
+            content: "✓";
+            background: var(--success-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0.5rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -1.75rem;
+            top: 0.25rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid var(--bg-white);
+            box-shadow: 0 0 0 2px var(--accent-color);
+        }
+
+        .timeline-item h4 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+
+        /* Technology stack */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .tech-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: var(--bg-light);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Simple explanation boxes */
+        .explanation {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .explanation strong {
+            color: #f57c00;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            nav {
+                display: none;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Accessibility: Focus styles */
+        a:focus,
+        button:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Call to action */
+        .cta {
+            background: linear-gradient(135deg, var(--success-color) 0%, #218838 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .cta h3 {
+            color: white;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header>
+        <h1>Development of the Daily Active8 Domains Resource</h1>
+        <p class="subtitle">Comprehensive Proposal for Public Health Wales</p>
+        <p class="subtitle">Tender Reference: PHW-ITT-60709</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#understanding">Understanding Requirements</a></li>
+            <li><a href="#solution">Our Solution</a></li>
+            <li><a href="#technology">Technology</a></li>
+            <li><a href="#approach">Our Approach</a></li>
+            <li><a href="#deliverables">Deliverables</a></li>
+            <li><a href="#timeline">Timeline</a></li>
+            <li><a href="#team">Our Team</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <section id="overview">
+            <h2>Executive Summary</h2>
+            <p>We are pleased to present this comprehensive proposal for the development of the Daily Active8 Domains Resource - a cutting-edge digital platform designed to empower schools across Wales with engaging, evidence-based guidance for implementing improvement actions across all eight domains.</p>
+            
+            <div class="key-info">
+                <h3>Key Project Information</h3>
+                <ul>
+                    <li><strong>Project Value:</strong> £32,000 (excluding VAT)</li>
+                    <li><strong>Timeline:</strong> 7 months, 27 days (February 2 - September 30, 2026)</li>
+                    <li><strong>Primary Objective:</strong> Create modular, academically rigorous, and intuitive guidance for schools</li>
+                    <li><strong>Target Audience:</strong> Schools implementing the Daily Active 8 Domains framework</li>
+                </ul>
+            </div>
+
+            <p>Our proposal demonstrates a deep understanding of the educational sector's needs, combining academic excellence with user-friendly design to create a resource that will truly transform how schools engage with the Daily Active8 framework.</p>
+        </section>
+
+        <section id="understanding">
+            <h2>Understanding Your Requirements</h2>
+            
+            <h3>What is the Daily Active8 Domains Resource?</h3>
+            <div class="explanation">
+                <p><strong>In Simple Terms:</strong> The Daily Active8 Domains Resource is a comprehensive digital guide that helps schools understand and implement eight key areas of improvement. Think of it as a roadmap that breaks down complex improvement strategies into manageable, actionable steps that teachers and school leaders can easily follow.</p>
+            </div>
+
+            <h3>Core Requirements Analysis</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Modular Content Design</h4>
+                    <p>Content must be organized into independent, reusable modules. This means schools can access specific domains they need without navigating through irrelevant information - like having separate chapters in a book that can be read independently.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Academic Rigor</h4>
+                    <p>All guidance must be backed by solid research and evidence. We'll ensure every recommendation is grounded in educational best practices and peer-reviewed research, giving schools confidence in the strategies they implement.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Engaging for Users</h4>
+                    <p>The platform must be visually appealing and interesting to use. We'll incorporate interactive elements, clear visuals, and engaging multimedia to make learning about improvement strategies enjoyable rather than overwhelming.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Intuitive Interface</h4>
+                    <p>School staff should be able to find what they need quickly and easily, without extensive training. The navigation will be logical and familiar - similar to using apps they already know and love.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Digital Platform Hosting</h4>
+                    <p>The resource must be accessible online from any device, anywhere. Schools shouldn't need special software or complicated installations - just an internet connection and a web browser.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Implementation Focus</h4>
+                    <p>Beyond theory, the resource must provide practical, actionable steps that schools can implement immediately. We'll include real examples, templates, and step-by-step guides.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="solution">
+            <h2>Our Proposed Solution</h2>
+            
+            <h3>Platform Architecture Overview</h3>
+            <div class="explanation">
+                <p><strong>What This Means:</strong> We're building a modern website specifically designed for schools. It will work perfectly on computers, tablets, and smartphones, ensuring teachers can access guidance whether they're in the classroom, staff room, or at home.</p>
+            </div>
+
+            <h4>Key Features of Our Solution:</h4>
+            <ul>
+                <li><strong>Domain-Centric Navigation:</strong> Each of the 8 domains will have its own dedicated section with clear pathways to related content</li>
+                <li><strong>Progressive Disclosure:</strong> Complex information is revealed gradually, allowing users to start with overviews and dive deeper as needed</li>
+                <li><strong>Search & Filter Capabilities:</strong> Quick search functionality to find specific topics, and filters to narrow down content by domain, topic, or school level</li>
+                <li><strong>Resource Library:</strong> Downloadable templates, checklists, action plans, and case studies</li>
+                <li><strong>Interactive Elements:</strong> Self-assessment tools, progress trackers, and interactive guides to make the learning experience engaging</li>
+                <li><strong>Responsive Design:</strong> Seamless experience across all devices - desktop, tablet, and mobile</li>
+                <li><strong>Accessibility First:</strong> Built to WCAG 2.1 AA standards, ensuring usability for all users including those with disabilities</li>
+            </ul>
+
+            <h3>Content Structure: The Modular Approach</h3>
+            <p>Each domain will follow a consistent, intuitive structure:</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Description</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Overview</strong></td>
+                        <td>Introduction to the domain</td>
+                        <td>Provides context and sets expectations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Why It Matters</strong></td>
+                        <td>Evidence base and rationale</td>
+                        <td>Builds understanding of importance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Key Principles</strong></td>
+                        <td>Core concepts and frameworks</td>
+                        <td>Establishes foundational knowledge</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Implementation Guide</strong></td>
+                        <td>Step-by-step action plans</td>
+                        <td>Provides practical roadmap</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Case Studies</strong></td>
+                        <td>Real-world examples from schools</td>
+                        <td>Demonstrates successful application</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resources & Tools</strong></td>
+                        <td>Downloadable templates and checklists</td>
+                        <td>Supports practical implementation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Self-Assessment</strong></td>
+                        <td>Interactive evaluation tools</td>
+                        <td>Helps schools identify priorities</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="technology">
+            <h2>Technology Stack & Implementation</h2>
+            
+            <div class="explanation">
+                <p><strong>Don't Worry If This Sounds Technical:</strong> We've chosen technologies that are modern, reliable, and widely supported. Think of it like choosing the best tools for building a house - we're using proven, industry-standard materials that will ensure your platform is fast, secure, and easy to maintain.</p>
+            </div>
+
+            <h3>Frontend Technologies (What Users See and Interact With)</h3>
+            <div class="tech-stack">
+                <span class="tech-badge">HTML5</span>
+                <span class="tech-badge">CSS3</span>
+                <span class="tech-badge">JavaScript (ES6+)</span>
+                <span class="tech-badge">Progressive Web App (PWA)</span>
+            </div>
+            <ul>
+                <li><strong>HTML5:</strong> The foundation - ensures content is structured properly and accessible to all users</li>
+                <li><strong>CSS3:</strong> Makes everything look beautiful and professional while maintaining fast loading times</li>
+                <li><strong>JavaScript:</strong> Adds interactivity - things like search functions, interactive guides, and dynamic content</li>
+                <li><strong>PWA:</strong> Allows users to "install" the website on their devices for quick access, even offline</li>
+            </ul>
+
+            <h3>Framework: Modern, Lightweight, and Efficient</h3>
+            <p>We'll use a modern static site generation approach that combines:</p>
+            <ul>
+                <li><strong>Static Site Generation:</strong> Pre-built pages load instantly, providing excellent performance</li>
+                <li><strong>Client-Side Enhancement:</strong> Interactive features load smoothly without compromising speed</li>
+                <li><strong>Content Management:</strong> Easy-to-update system that doesn't require technical expertise</li>
+            </ul>
+
+            <h3>Hosting & Infrastructure</h3>
+            <ul>
+                <li><strong>Cloud-Based Hosting:</strong> Reliable, scalable hosting that ensures 99.9% uptime</li>
+                <li><strong>Content Delivery Network (CDN):</strong> Fast loading times regardless of user location</li>
+                <li><strong>SSL Encryption:</strong> Secure connection protecting all user data</li>
+                <li><strong>Regular Backups:</strong> Automated daily backups ensure content safety</li>
+            </ul>
+
+            <h3>Why These Technologies?</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Easy to Maintain</h4>
+                    <p>No complex server management or database administration required. Updates can be made quickly and easily.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Cost-Effective</h4>
+                    <p>Low hosting costs mean more budget for content development and future enhancements.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Future-Proof</h4>
+                    <p>Built on open standards, ensuring the platform remains viable and updatable for years to come.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Scalable</h4>
+                    <p>Can handle thousands of simultaneous users without performance issues.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="approach">
+            <h2>Our Development Approach</h2>
+            
+            <h3>Phase 1: Discovery & Planning (Weeks 1-2)</h3>
+            <ul>
+                <li>In-depth consultation with Public Health Wales and the Daily Active Project Group</li>
+                <li>Review of existing documentation and evidence base</li>
+                <li>Stakeholder interviews with school representatives</li>
+                <li>Content audit and information architecture design</li>
+                <li>User journey mapping</li>
+                <li>Technical specification development</li>
+            </ul>
+
+            <h3>Phase 2: Design & Content Strategy (Weeks 3-6)</h3>
+            <ul>
+                <li>Visual design system development (colors, typography, components)</li>
+                <li>Wireframe creation (blueprints showing page structure)</li>
+                <li>Interactive prototype development</li>
+                <li>Content outline and structure for all 8 domains</li>
+                <li>Accessibility audit and design refinement</li>
+                <li>User testing with sample school staff</li>
+            </ul>
+
+            <h3>Phase 3: Content Development (Weeks 7-14)</h3>
+            <ul>
+                <li>Academic research and evidence gathering for each domain</li>
+                <li>Content writing with academic rigor review</li>
+                <li>Development of case studies and practical examples</li>
+                <li>Creation of downloadable resources (templates, checklists, guides)</li>
+                <li>Multimedia content creation (infographics, diagrams, video scripts)</li>
+                <li>Content review and refinement cycles</li>
+            </ul>
+
+            <h3>Phase 4: Platform Development (Weeks 15-22)</h3>
+            <ul>
+                <li>Frontend development and implementation</li>
+                <li>Content integration and CMS setup</li>
+                <li>Interactive feature development</li>
+                <li>Search functionality implementation</li>
+                <li>Mobile responsiveness optimization</li>
+                <li>Accessibility compliance implementation</li>
+            </ul>
+
+            <h3>Phase 5: Testing & Refinement (Weeks 23-26)</h3>
+            <ul>
+                <li>Comprehensive user testing with school staff</li>
+                <li>Cross-browser and device testing</li>
+                <li>Performance optimization</li>
+                <li>Accessibility testing (screen readers, keyboard navigation)</li>
+                <li>Content accuracy review</li>
+                <li>Bug fixes and refinements</li>
+            </ul>
+
+            <h3>Phase 6: Launch & Handover (Weeks 27-30)</h3>
+            <ul>
+                <li>Final content review and approval</li>
+                <li>Platform deployment to production</li>
+                <li>User training and documentation</li>
+                <li>Administrator training</li>
+                <li>Knowledge transfer and handover</li>
+                <li>Post-launch support period</li>
+            </ul>
+
+            <h3>Ongoing: Quality Assurance Throughout</h3>
+            <p>At every stage, we maintain rigorous quality standards:</p>
+            <ul>
+                <li>Regular progress reviews with stakeholders</li>
+                <li>Iterative feedback incorporation</li>
+                <li>Academic peer review of all content</li>
+                <li>Accessibility audits at each milestone</li>
+                <li>User experience testing throughout development</li>
+            </ul>
+        </section>
+
+        <section id="deliverables">
+            <h2>Project Deliverables</h2>
+            
+            <h3>Primary Deliverable: The Digital Platform</h3>
+            <p>A fully functional, accessible, and engaging digital resource hosting content for all 8 Daily Active Domains, including:</p>
+            <ul>
+                <li>Complete content for all 8 domains with modular structure</li>
+                <li>Responsive design working seamlessly on desktop, tablet, and mobile devices</li>
+                <li>Intuitive navigation and search functionality</li>
+                <li>Interactive elements (self-assessments, progress trackers)</li>
+                <li>Downloadable resource library (templates, checklists, action plans)</li>
+                <li>Case studies and practical examples</li>
+                <li>Accessibility features (WCAG 2.1 AA compliant)</li>
+            </ul>
+
+            <h3>Supporting Documentation</h3>
+            <ul>
+                <li><strong>User Guide:</strong> Comprehensive documentation for school staff using the platform</li>
+                <li><strong>Administrator Guide:</strong> Instructions for managing and updating content</li>
+                <li><strong>Technical Documentation:</strong> System architecture and maintenance procedures</li>
+                <li><strong>Content Index:</strong> Complete catalog of all resources and their locations</li>
+            </ul>
+
+            <h3>Training & Knowledge Transfer</h3>
+            <ul>
+                <li>User training sessions (online and recorded for future reference)</li>
+                <li>Administrator training for content management</li>
+                <li>Training materials and quick reference guides</li>
+                <li>Knowledge transfer sessions with Public Health Wales staff</li>
+            </ul>
+
+            <h3>Source Materials</h3>
+            <ul>
+                <li>All design files and assets</li>
+                <li>Source code repository with documentation</li>
+                <li>Content files in editable formats</li>
+                <li>Brand guidelines and style guide</li>
+            </ul>
+        </section>
+
+        <section id="timeline">
+            <h2>Detailed Project Timeline</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>February 2026 - Project Kickoff</h4>
+                    <p>Discovery phase begins with stakeholder consultations, requirements finalization, and project planning.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>March 2026 - Design Phase</h4>
+                    <p>Visual design system development, wireframe creation, and initial prototype testing with users.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>April - June 2026 - Content Development</h4>
+                    <p>Intensive content creation for all 8 domains, including research, writing, and resource development.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>July - August 2026 - Platform Development</h4>
+                    <p>Technical implementation, content integration, and feature development with regular testing cycles.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>September 2026 - Testing & Launch</h4>
+                    <p>Comprehensive testing, refinements, user training, and final platform launch with full documentation handover.</p>
+                </div>
+            </div>
+
+            <h3>Key Milestones</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Milestone</th>
+                        <th>Target Date</th>
+                        <th>Deliverable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Project Kickoff</td>
+                        <td>Week 1 (Feb 2026)</td>
+                        <td>Project plan and requirements document</td>
+                    </tr>
+                    <tr>
+                        <td>Design Approval</td>
+                        <td>Week 6 (March 2026)</td>
+                        <td>Approved visual design and prototype</td>
+                    </tr>
+                    <tr>
+                        <td>Content Review 1</td>
+                        <td>Week 10 (April 2026)</td>
+                        <td>First 4 domains content draft</td>
+                    </tr>
+                    <tr>
+                        <td>Content Review 2</td>
+                        <td>Week 14 (May 2026)</td>
+                        <td>Remaining 4 domains content draft</td>
+                    </tr>
+                    <tr>
+                        <td>Beta Platform</td>
+                        <td>Week 22 (July 2026)</td>
+                        <td>Functional platform for user testing</td>
+                    </tr>
+                    <tr>
+                        <td>Final Platform</td>
+                        <td>Week 26 (August 2026)</td>
+                        <td>Completed platform ready for launch</td>
+                    </tr>
+                    <tr>
+                        <td>Project Launch</td>
+                        <td>Week 30 (September 2026)</td>
+                        <td>Live platform with full documentation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="team">
+            <h2>Why Choose Our Team?</h2>
+            
+            <h3>Our Expertise</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Educational Sector Experience</h4>
+                    <p>Deep understanding of school environments, curriculum delivery, and the challenges faced by educators. We've worked with educational organizations to create resources that truly resonate with teachers and school leaders.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Academic Rigor</h4>
+                    <p>Team members with advanced degrees in education and public health, ensuring content is both academically sound and practically applicable. We understand how to translate research into actionable guidance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Technical Excellence</h4>
+                    <p>Experienced developers skilled in modern web technologies, creating platforms that are fast, secure, and maintainable. We stay current with best practices and accessibility standards.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>User-Centered Design</h4>
+                    <p>Specialists in creating intuitive, accessible interfaces that put users first. Every design decision is informed by user research and testing, ensuring the platform is genuinely easy to use.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Content Development</h4>
+                    <p>Skilled writers and content strategists who excel at making complex information clear and engaging. We know how to structure content for maximum understanding and actionability.</p>
+                </div>
+
+                <div class="feature-card">
+                    <h4>Project Management</h4>
+                    <p>Proven track record of delivering projects on time and within budget. Clear communication, regular updates, and proactive problem-solving ensure smooth project execution.</p>
+                </div>
+            </div>
+
+            <h3>Our Commitment to Excellence</h3>
+            <ul>
+                <li><strong>Quality Assurance:</strong> Multiple review cycles ensure accuracy and excellence at every stage</li>
+                <li><strong>Stakeholder Engagement:</strong> Regular check-ins and collaborative feedback incorporation</li>
+                <li><strong>Accessibility Leadership:</strong> Exceeding WCAG 2.1 AA standards, not just meeting them</li>
+                <li><strong>Evidence-Based Approach:</strong> Every recommendation backed by research and best practices</li>
+                <li><strong>User Focus:</strong> School staff needs at the center of every decision</li>
+                <li><strong>Future-Proofing:</strong> Building a platform that can evolve and grow over time</li>
+            </ul>
+
+            <div class="cta">
+                <h3>Ready to Transform Daily Active8 Implementation</h3>
+                <p>We are committed to delivering a resource that exceeds expectations - one that schools will genuinely want to use, that supports real improvement, and that demonstrates academic rigor alongside practical utility.</p>
+                <p><strong>Together, we can create something truly transformative for schools across Wales.</strong></p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Next Steps</h2>
+            <p>We would welcome the opportunity to discuss this proposal in greater detail and answer any questions you may have. Our team is ready to begin work immediately upon award, ensuring we can deliver the Daily Active8 Domains Resource on schedule and to the highest standards.</p>
+            
+            <h3>Contact Information</h3>
+            <p>Should you require any clarification or wish to discuss aspects of this proposal, please don't hesitate to reach out. We're here to ensure this project's success and to create a resource that will truly serve schools across Wales.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Proposal for Daily Active8 Domains Resource Development</p>
+        <p>Tender Reference: PHW-ITT-60709 | Notice Identifier: 2025/S 000-070683</p>
+        <p>This proposal demonstrates our capability to deliver exceptional value while meeting all specified requirements.</p>
+    </footer>
+</body>
+</html>
+
+
